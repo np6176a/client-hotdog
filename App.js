@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { uploadImgAsync } from './utils/Upload'
+import { userPermit } from './utils/Permissions'
+import { uploadImgAsync } from './utils/AmazonServices'
 import InitialView from './components/InitialView'
 
 export default class App extends React.Component {
@@ -17,20 +18,8 @@ export default class App extends React.Component {
   }
 
   selectPhoto = async () => {
-    //all of this needs to be in the util file
-    const { ImagePicker, Permissions } = Expo
-    //getting user permission for gallery
-    const {
-      status: cameraRollPermit
-    } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
-
-    if (cameraRollPermit === 'granted') {
-      let imgResult = await ImagePicker.launchImageLibraryAsync({
-        allowsEditing: true,
-        aspect: [4, 3]
-      })
-      await this.handleImgResult(imgResult)
-    }
+    const imgResult = await userPermit()
+    return await this.handleImgResult(imgResult)
   }
 
   //fn to update img state when user picks an img

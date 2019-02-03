@@ -1,3 +1,6 @@
+import axios from 'axios'
+
+//the post to AWS S3
 export const uploadImgAsync = (uri) => {
   const apiUrl = 'http://localhost:3000/upload'
   const uriParts = uri.split('.')
@@ -9,13 +12,10 @@ export const uploadImgAsync = (uri) => {
     name:`photo.${fileType}`,
     type: `image/${fileType}`
   })
-  const opts = {
-    method: 'POST',
-    body: formData,
+  return axios.post(apiUrl, formData, {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'multipart/form-data',
     }
-  }
-  return fetch(apiUrl, opts)
+  })
 }
