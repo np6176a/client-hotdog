@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
+import { uploadImgAsync } from './utils/Upload'
 import InitialView from './components/InitialView'
 
 export default class App extends React.Component {
@@ -9,16 +10,15 @@ export default class App extends React.Component {
       img: null,
       loading: false,
     }
-    this.takePhoto = this.takePhoto.bind(this)
-    this.selectPhoto = this.selectPhoto.bind(this)
-    this.handleImgResult = this.handleImgResult.bind(this)
   }
 
-  takePhoto () {
+  takePhoto = () => {
     console.log('hello')
   }
 
-  selectPhoto () {
+  selectPhoto = async () => {
+    //all of this needs to be in the util file
+    const { ImagePicker, Permissions } = Expo
     //getting user permission for gallery
     const {
       status: cameraRollPermit
@@ -29,31 +29,31 @@ export default class App extends React.Component {
         allowsEditing: true,
         aspect: [4, 3]
       })
+      await this.handleImgResult(imgResult)
     }
-    this.handleImgResult(imgResult)
   }
 
   //fn to update img state when user picks an img
   handleImgResult = async (imgResult) => {
+    if (imgResult.cancelled) return
     try {
       this.setState({
         loading: true
       })
-      if (!imgResult.cancelled) {
-        this.setState({
-          img: imgResult
-        })
-      }
+      const uploadResponse = await uploadImgAsync(imgResult.uri)
+      const uploadResult = await uploadResponse.json()
+      // const aiResult = await requestAiProcessing(s3Bucket, s3Path)
+      // const isHotdog = processAiResult(aiResult)
+      // setState({loading: false, error: false, isHotdog: true)}
     } catch (e) {
-      console.log({e})
+      console.log({ uploadResponse })
+      console.log({ uploadResult })
+      console.log({ e })
+      //this.setState({ loading: false, error: true })
+      //also have a reset button in the error view to restart the photo submit
       alert('Failed Image Upload :(')
-    } finally {
-      this.setState({
-        loading: false
-      })
     }
   }
-
 
   render () {
     return (
