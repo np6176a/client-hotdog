@@ -1,8 +1,9 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { userPermit } from './utils/Permissions'
-import { uploadImgAsync } from './utils/AmazonServices'
+import { uploadImgAsync, imgRekognition } from './utils/AmazonServices'
 import InitialView from './components/InitialView'
+import { ImagePicker } from 'expo'
 
 export default class App extends React.Component {
   constructor (props) {
@@ -18,26 +19,33 @@ export default class App extends React.Component {
   }
 
   selectPhoto = async () => {
-    const imgResult = await userPermit()
-    return await this.handleImgResult(imgResult)
+    const canAccessImageRoll = await userPermit()
+    if (!canAccessImageRoll) return null
+    const pickedImage = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      aspect: [4, 3]
+    })
+    await this.handleImgResult(pickedImage)
   }
 
   //fn to update img state when user picks an img
-  handleImgResult = async (imgResult) => {
-    if (imgResult.cancelled) return
+  handleImgResult = async (pickedImage) => {
+    debugger
+    if (pickedImage.cancelled) return
     try {
       this.setState({
         loading: true
       })
-      const uploadResponse = await uploadImgAsync(imgResult.uri)
-      const uploadResult = await uploadResponse.json()
+      const uploadResponse = await uploadImgAsync(pickedImage.uri)
+      const reko = await imgRekognition(uploadResponse.data)
+      console.log(reko)
+      debugger
+
       // const aiResult = await requestAiProcessing(s3Bucket, s3Path)
       // const isHotdog = processAiResult(aiResult)
       // setState({loading: false, error: false, isHotdog: true)}
     } catch (e) {
-      console.log({ uploadResponse })
-      console.log({ uploadResult })
-      console.log({ e })
+      console.log(e)
       //this.setState({ loading: false, error: true })
       //also have a reset button in the error view to restart the photo submit
       alert('Failed Image Upload :(')

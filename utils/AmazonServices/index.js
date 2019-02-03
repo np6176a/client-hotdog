@@ -19,3 +19,10 @@ export const uploadImgAsync = (uri) => {
     }
   })
 }
+
+
+//the post to AWS Rekognition
+export const imgRekognition = (imgData) => {
+  const apiUrl = 'http://localhost:3000/rekognition'
+  axios.post(apiUrl, imgData)
+}
