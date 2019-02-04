@@ -6,6 +6,7 @@ import { awsImgAnalysis } from './utils/AmazonServices'
 import { checkForHotdog } from './utils/CheckForHotDog'
 import InitialView from './components/InitialView'
 import PickedImageView from './components/PickedImageView'
+import YesHotDog from './components/PickedImageView/components/YesHotDog'
 
 export default class App extends React.Component {
   constructor (props) {
@@ -25,7 +26,6 @@ export default class App extends React.Component {
       allowsEditing: true,
       aspect: [16, 9]
     })
-    debugger
     this.setState({ pickedImage: pickedImage.uri })
     await this.handleImgResult(pickedImage)
   }
@@ -49,11 +49,18 @@ export default class App extends React.Component {
   }
 
   render () {
-    const { pickedImage } = this.state
+    const { pickedImage, isHotDog, loading } = this.state
     return (
       <View style={styles.container}>
-        {!pickedImage && <InitialView takePhoto={this.takePhoto} selectPhoto={this.selectPhoto}/>}
-        {pickedImage && <PickedImageView pickedImage={pickedImage}/>}
+        {!pickedImage &&
+        <InitialView selectPhoto={this.selectPhoto}/>
+        }
+        {(pickedImage && !loading) &&
+        <PickedImageView
+          pickedImage={pickedImage}
+          isHotDog={isHotDog}
+        />
+        }
       </View>
     )
   }
@@ -61,8 +68,7 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex:1,
     backgroundColor: '#EDEEF7',
-    flexDirection: 'column'
   },
 })

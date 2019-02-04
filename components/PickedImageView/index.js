@@ -1,30 +1,58 @@
 import React, { Component, PropTypes } from 'react'
-import { View, Text, ImageBackground, Button, StyleSheet } from 'react-native'
+import { View, ImageBackground, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import YesHotDog from './components/YesHotDog'
+import NoHotDog from './components/NoHotDog'
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
+    alignItems: 'stretch',
+    justifyContent: 'center',
+  },
+  divider: {
+    flex: 1,
+    height: 50
+  },
+  btnWrap: {
+    flex: 1,
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  title: {
-    fontSize: 30,
-    marginVertical: 40,
-    fontWeight: 'bold',
-    backgroundColor: '#fff',
-    paddingVertical: 10,
+  btn: {
+    width: 180,
+    height: 50,
+    borderColor: '#fff',
+    borderRadius: 100,
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  btnText:{
+    color: '#fff',
+    textTransform: 'uppercase',
+    fontSize: 18,
+    fontWeight: 'bold'
   }
 })
 
 class PickedImageView extends Component {
   render () {
-    const {pickedImage} = this.props
+    const { pickedImage, isHotDog } = this.props
     return (
-      <ImageBackground source={{uri: pickedImage}} style={styles.container}>
-        <View>
-        <Text style={styles.title}>It Is A Hot Dog</Text>
-        <Button onPress={()=>{}} title='RESET'/>
+      <ImageBackground source={{ uri: pickedImage }} style={styles.container}>
+        <View style={styles.divider}/>
+        {isHotDog &&
+        <YesHotDog/>
+        }
+        {!isHotDog &&
+          <NoHotDog/>
+        }
+        <View style={styles.btnWrap}>
+          <TouchableOpacity style={styles.btn} onPress={() => {}}>
+            <Text style={styles.btnText}>Reset</Text>
+          </TouchableOpacity>
         </View>
       </ImageBackground>
     )
