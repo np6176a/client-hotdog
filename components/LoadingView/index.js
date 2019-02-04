@@ -2,7 +2,6 @@ import React, {PureComponent} from 'react'
 import { ActivityIndicator, View, Text } from 'react-native'
 import styles from './styles'
 
-
 class LoadingView extends PureComponent{
   render () {
     return(

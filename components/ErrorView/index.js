@@ -3,7 +3,6 @@ import { View, ImageBackground, Text, TouchableOpacity } from 'react-native'
 import errorDog from '../../assets/imgs/errorDog.jpg'
 import styles from './styles'
 
-
 class ErrorView extends Component {
   render () {
     const { reset } = this.props

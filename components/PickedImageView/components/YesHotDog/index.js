@@ -3,7 +3,6 @@ import { View, Text, Image, StyleSheet } from 'react-native'
 import yes from '../../../../assets/icons/yeah.png'
 import styles from '../styles'
 
-
 class YesHotDog extends PureComponent {
   render () {
     return (

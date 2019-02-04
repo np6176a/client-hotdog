@@ -10,12 +10,8 @@ class PickedImageView extends Component {
     return (
       <ImageBackground source={{ uri: pickedImage }} style={styles.container}>
         <View style={styles.divider}/>
-        {isHotDog &&
-        <YesHotDog/>
-        }
-        {!isHotDog &&
-          <NoHotDog/>
-        }
+        {isHotDog && <YesHotDog/>}
+        {!isHotDog && <NoHotDog/>}
         <View style={styles.btnWrap}>
           <TouchableOpacity style={styles.btn} onPress={reset}>
             <Text style={styles.btnText}>Reset</Text>

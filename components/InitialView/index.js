@@ -3,7 +3,6 @@ import { View, Text, Image, TouchableOpacity } from 'react-native'
 import logo from '../../assets/icon.png'
 import styles from './styles'
 
-
 class InitialView extends Component {
   render () {
     const { selectPhoto, takePhoto } = this.props

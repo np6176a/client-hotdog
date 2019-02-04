@@ -2,7 +2,6 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/3c9abc71b701bf9e9945/maintainability)](https://codeclimate.com/github/np6176a/client-hotdog/maintainability)
 [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![forthebadge](https://forthebadge.com/images/badges/built-by-hipsters.svg)](https://forthebadge.com)
 
 # Hot Dog Checker
 
@@ -47,7 +46,9 @@ Styling for each component is done using React Native's Stylesheet. Each compone
 styles.js file.
 
 ## API Information
-
+<p align="center">
+  <img src="readme_images/aoi.png" width="400">
+</p>
 The app uses axios to connect to the node server, which then connects to AWS.
 When a photo is selected it is then uploaded to a [S3 server](https://aws.amazon.com/s3/), and then separate async await function
 is made to send the image information to [Amazon Image Rekognition](https://aws.amazon.com/rekognition/).
