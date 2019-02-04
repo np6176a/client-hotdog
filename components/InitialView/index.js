@@ -29,7 +29,6 @@ class InitialView extends Component {
         <Image style={styles.logo} source={logo}/>
         <View/>
         <Text style={styles.title}>The Hot Dog Checker</Text>
-        <Button onPress={takePhoto} title='Take A Photo'/>
         <Button onPress={selectPhoto} title='Select From Gallery'/>
       </View>
     )

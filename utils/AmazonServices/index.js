@@ -1,5 +1,12 @@
 import axios from 'axios'
 
+export const awsImgAnalysis = (pickedImage) => {
+  return uploadImgAsync(pickedImage.uri)
+    .then(data => {
+      return imgRekognition(data.data)
+    })
+}
+
 //the post to AWS S3
 export const uploadImgAsync = (uri) => {
   const apiUrl = 'http://localhost:3000/upload'
@@ -24,5 +31,5 @@ export const uploadImgAsync = (uri) => {
 //the post to AWS Rekognition
 export const imgRekognition = (imgData) => {
   const apiUrl = 'http://localhost:3000/rekognition'
-  axios.post(apiUrl, imgData)
+  return axios.post(apiUrl, imgData)
 }

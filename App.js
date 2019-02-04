@@ -1,7 +1,8 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { userPermit } from './utils/Permissions'
-import { uploadImgAsync, imgRekognition } from './utils/AmazonServices'
+import { awsImgAnalysis } from './utils/AmazonServices'
+import { checkForHotdog } from './utils/CheckForHotDog'
 import InitialView from './components/InitialView'
 import { ImagePicker } from 'expo'
 
@@ -9,18 +10,15 @@ export default class App extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      img: null,
+      hotDog: null,
       loading: false,
+      hasError: false
     }
-  }
-
-  takePhoto = () => {
-    console.log('hello')
   }
 
   selectPhoto = async () => {
     const canAccessImageRoll = await userPermit()
-    if (!canAccessImageRoll) return null
+    if (!canAccessImageRoll) return
     const pickedImage = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       aspect: [4, 3]
@@ -30,20 +28,14 @@ export default class App extends React.Component {
 
   //fn to update img state when user picks an img
   handleImgResult = async (pickedImage) => {
-    debugger
     if (pickedImage.cancelled) return
     try {
       this.setState({
         loading: true
       })
-      const uploadResponse = await uploadImgAsync(pickedImage.uri)
-      const reko = await imgRekognition(uploadResponse.data)
-      console.log(reko)
-      debugger
-
-      // const aiResult = await requestAiProcessing(s3Bucket, s3Path)
-      // const isHotdog = processAiResult(aiResult)
-      // setState({loading: false, error: false, isHotdog: true)}
+      const data = await awsImgAnalysis(pickedImage)
+      const isHotDog = checkForHotdog(data)
+      this.setState({ loading: false, error: false, isHotdog })
     } catch (e) {
       console.log(e)
       //this.setState({ loading: false, error: true })
