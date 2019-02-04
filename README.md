@@ -30,7 +30,6 @@ To view the project as a mobile app you will need to download Expo Client on you
 You can view in browser using the default Appetize.io setup in Expo or request a link in the Expo project page. 
 
 # Approach
-The following will focus on the Front End code.
 
 ## Build Process
 
@@ -49,9 +48,17 @@ styles.js file.
 <p align="center">
   <img src="readme_images/api.png" width="400">
 </p>
-The app uses axios to connect to the node server, which then connects to AWS.
-When a photo is selected it is then uploaded to a [S3 server](https://aws.amazon.com/s3/), and then separate async await function
-is made to send the image information to [Amazon Image Rekognition](https://aws.amazon.com/rekognition/).
+1. Once an image is selected:
+⋅⋅⋅1a The mobile app makes an async await call to the node server to upload the selected image
+and return a url for to the image location.
+⋅⋅⋅1b The node server uses aws-sdk to connect an [S3 Bucket](https://aws.amazon.com/s3/) and upload the selected image.
+Once uploaded the S3 bucket returns a url for the image to the node server.
+
+2. The mobile app receives the url to the image.
+⋅⋅⋅2a The mobile app sends the image url back to the node server to be analyzed by [Amazon Image Rekognition](https://aws.amazon.com/rekognition/). It expects
+the return of a list of names (labels) from the node server. The list is then checked for the string 'Hot Dog'.
+⋅⋅⋅2b The node server uses the aws-sdk to send the image url to Amazon Rekognition's Detect Label service, which returns
+an object of arrays. The node server maps the object to send a list of names (labels) to the front end.   
 
 # Known Limitations
 
