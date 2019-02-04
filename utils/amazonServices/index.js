@@ -28,6 +28,4 @@ export const uploadImgAsync = (uri) => {
 
 
 //the post to AWS Rekognition
-export const imgRekognition = (imgData) => {
-  return axios.post(API_URL_REKOGNITION, imgData)
-}
+export const imgRekognition = imgData => axios.post(API_URL_REKOGNITION, imgData)
