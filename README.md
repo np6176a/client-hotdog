@@ -27,7 +27,8 @@ can be found [here](https://github.com/np6176a/server-hotdog)
 # Demo
 
 You can check out a demo here: [https://expo.io/@findniya/hotdog](https://expo.io/@findniya/hotdog).
-To view app as a mobile app you will need download Expo Client.
+To view the project as a mobile app you will need to download Expo Client on your mobile device.
+You can view in browser using the default Appetize.io setup in Expo or request a link in the Expo project page. 
 
 # Approach
 The following will focus on the Front End code.
