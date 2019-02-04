@@ -11,6 +11,7 @@
 </p>
 
 * [Overview](#overview)
+* [Demo](#demo)
 * [Approach](#approach)
 * [Known Limitations](#known-limitations)
 * [Running Locally](#running-locally)
