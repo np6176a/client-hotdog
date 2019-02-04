@@ -6,7 +6,7 @@ import { awsImgAnalysis } from './utils/AmazonServices'
 import { checkForHotdog } from './utils/CheckForHotDog'
 import InitialView from './components/InitialView'
 import PickedImageView from './components/PickedImageView'
-import YesHotDog from './components/PickedImageView/components/YesHotDog'
+import ErrorView from './components/ErrorView'
 
 export default class App extends React.Component {
   constructor (props) {
@@ -43,15 +43,26 @@ export default class App extends React.Component {
     } catch (e) {
       console.log(e)
       this.setState({ loading: false, error: true })
-      //also have a reset button in the error view to restart the photo submit
-      alert('Failed Image Upload :(')
     }
   }
 
+  resetChecker = () => {
+    this.setState({
+      pickedImage: null,
+      isHotDog: null,
+      error: false,
+      loading: false
+    })
+  }
+
   render () {
-    const { pickedImage, isHotDog, loading } = this.state
+    const { pickedImage, isHotDog, loading, error } = this.state
     return (
       <View style={styles.container}>
+        {error &&
+        <ErrorView reset={this.resetChecker}/>
+        }
+
         {!pickedImage &&
         <InitialView selectPhoto={this.selectPhoto}/>
         }
@@ -59,6 +70,7 @@ export default class App extends React.Component {
         <PickedImageView
           pickedImage={pickedImage}
           isHotDog={isHotDog}
+          reset={this.resetChecker}
         />
         }
       </View>
@@ -68,7 +80,7 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex:1,
+    flex: 1,
     backgroundColor: '#EDEEF7',
   },
 })

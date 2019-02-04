@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
 
 class PickedImageView extends Component {
   render () {
-    const { pickedImage, isHotDog } = this.props
+    const { pickedImage, isHotDog, reset } = this.props
     return (
       <ImageBackground source={{ uri: pickedImage }} style={styles.container}>
         <View style={styles.divider}/>
@@ -50,7 +50,7 @@ class PickedImageView extends Component {
           <NoHotDog/>
         }
         <View style={styles.btnWrap}>
-          <TouchableOpacity style={styles.btn} onPress={() => {}}>
+          <TouchableOpacity style={styles.btn} onPress={reset}>
             <Text style={styles.btnText}>Reset</Text>
           </TouchableOpacity>
         </View>
