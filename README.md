@@ -47,7 +47,7 @@ styles.js file.
 
 ## API Information
 <p align="center">
-  <img src="readme_images/aoi.png" width="400">
+  <img src="readme_images/api.png" width="400">
 </p>
 The app uses axios to connect to the node server, which then connects to AWS.
 When a photo is selected it is then uploaded to a [S3 server](https://aws.amazon.com/s3/), and then separate async await function
