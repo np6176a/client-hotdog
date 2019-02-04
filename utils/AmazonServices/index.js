@@ -1,15 +1,12 @@
 import axios from 'axios'
 
-export const awsImgAnalysis = (pickedImage) => {
-  return uploadImgAsync(pickedImage.uri)
-    .then(data => {
-      return imgRekognition(data.data)
-    })
+export const awsImgAnalysis = async (pickedImage) => {
+  const upload = await uploadImgAsync(pickedImage.uri)
+  return await imgRekognition(upload.data)
 }
-
+const API_URL = 'http://localhost:3000/upload'
 //the post to AWS S3
 export const uploadImgAsync = (uri) => {
-  const apiUrl = 'http://localhost:3000/upload'
   const uriParts = uri.split('.')
   const fileType = uriParts[uriParts.length-1]
 
@@ -19,7 +16,7 @@ export const uploadImgAsync = (uri) => {
     name:`photo.${fileType}`,
     type: `image/${fileType}`
   })
-  return axios.post(apiUrl, formData, {
+  return axios.post(API_URL, formData, {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'multipart/form-data',

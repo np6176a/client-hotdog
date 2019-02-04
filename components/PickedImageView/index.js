@@ -1,41 +1,8 @@
 import React, { Component, PropTypes } from 'react'
-import { View, ImageBackground, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, ImageBackground, Text, TouchableOpacity } from 'react-native'
 import YesHotDog from './components/YesHotDog'
 import NoHotDog from './components/NoHotDog'
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'stretch',
-    justifyContent: 'center',
-  },
-  divider: {
-    flex: 1,
-    height: 50
-  },
-  btnWrap: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  btn: {
-    width: 180,
-    height: 50,
-    borderColor: '#fff',
-    borderRadius: 100,
-    borderWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  btnText:{
-    color: '#fff',
-    textTransform: 'uppercase',
-    fontSize: 18,
-    fontWeight: 'bold'
-  }
-})
+import styles from './styles'
 
 class PickedImageView extends Component {
   render () {

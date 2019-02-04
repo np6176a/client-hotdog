@@ -1,9 +1,10 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
-import { ImagePicker, LinearGradient } from 'expo'
-import { userPermit } from './utils/Permissions'
+import { LinearGradient } from 'expo'
+import { userCameraRollPermit, userCameraPermit } from './utils/Permissions'
 import { awsImgAnalysis } from './utils/AmazonServices'
 import { checkForHotdog } from './utils/CheckForHotDog'
+import { imgLibPicker, imgCameraPicker } from './utils/ImgPicker'
 import InitialView from './components/InitialView'
 import PickedImageView from './components/PickedImageView'
 import ErrorView from './components/ErrorView'
@@ -19,13 +20,19 @@ export default class App extends React.Component {
     }
   }
 
+  takePhoto = async () => {
+    const canAccessCamera = await userCameraPermit()
+    const canAccessImageRoll = await userCameraRollPermit()
+    if (!canAccessImageRoll || !canAccessCamera) return
+    const pickedImage = await imgCameraPicker()
+    this.setState({ pickedImage: pickedImage.uri })
+    await this.handleImgResult(pickedImage)
+  }
+
   selectPhoto = async () => {
-    const canAccessImageRoll = await userPermit()
+    const canAccessImageRoll = await userCameraRollPermit()
     if (!canAccessImageRoll) return
-    const pickedImage = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true,
-      aspect: [16, 9]
-    })
+    const pickedImage = await imgLibPicker()
     this.setState({ pickedImage: pickedImage.uri })
     await this.handleImgResult(pickedImage)
   }
@@ -37,15 +44,15 @@ export default class App extends React.Component {
       this.setState({
         loading: true
       })
-      const data = await awsImgAnalysis(pickedImage)
-      const isHotDog = checkForHotdog(data)
+      const namesObj = await awsImgAnalysis(pickedImage)
+      const isHotDog = checkForHotdog(namesObj)
       this.setState({ loading: false, error: false, isHotDog })
     } catch (e) {
       console.log(e)
       this.setState({ loading: false, error: true })
     }
   }
-
+//resets all state
   resetChecker = () => {
     this.setState({
       pickedImage: null,
@@ -70,7 +77,7 @@ export default class App extends React.Component {
         }
 
         {!pickedImage &&
-        <InitialView selectPhoto={this.selectPhoto}/>
+        <InitialView selectPhoto={this.selectPhoto} takePhoto={this.takePhoto}/>
         }
         {(pickedImage && !loading) &&
         <PickedImageView
