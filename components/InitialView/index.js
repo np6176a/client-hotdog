@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
 
 class InitialView extends Component {
   render () {
-    const { takePhoto, selectPhoto } = this.props
+    const { selectPhoto } = this.props
     return (
       <View style={styles.container}>
         <Image style={styles.logo} source={logo}/>

@@ -1,4 +1,4 @@
 export const checkForHotdog = (names) => {
-  debugger
-
+  const hotDog = names.data.indexOf('Plant')
+  return hotDog > 0
 }
