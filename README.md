@@ -65,7 +65,7 @@ can work fairly well for these limited set of requirements; however, it can stil
 get messy. I've isolated the use of React state to just one parent container, making it fairly easy
 to switch to React Context API or Redux at a later time.
 
-## Native Gesture
+## Navigation
 I did not incorporate [React Navigation](https://github.com/react-navigation/react-navigation) or tap into mobile
 gestures like swipes. As this is my first published React Native app, the focus was to get the app to communicate
 properly with the node server and AWS.
