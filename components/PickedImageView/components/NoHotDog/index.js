@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     marginTop: 30,
-    marginBottom: 0,
+    marginBottom: -10,
     alignSelf: 'center',
   },
   title: {
@@ -35,7 +35,7 @@ class NoHotDog extends PureComponent {
       <View style={styles.container}>
         <View style={styles.wrapper}>
           <Image source={nope} style={styles.image}/>
-          <Text style={styles.title}>Oh No! Not A Hot Dog</Text>
+          <Text style={styles.title}>Not A Hot Dog</Text>
         </View>
       </View>
     )

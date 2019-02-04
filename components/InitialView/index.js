@@ -17,15 +17,15 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     marginVertical: 40,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    color: '#fff'
   },
   btn: {
     width: 300,
     height: 50,
-    borderColor: '#696969',
+    borderColor: '#fff',
     borderWidth: 1,
     borderRadius: 100,
-    backgroundColor: '#F6F7FB',
     shadowColor: '#D6D6D6',
     shadowOpacity: 0.5,
     shadowOffset: {
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   btnText: {
-    color: '#000',
+    color: '#fff',
     textTransform: 'uppercase',
     fontSize: 16,
     fontWeight: 'bold'

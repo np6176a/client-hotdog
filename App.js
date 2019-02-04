@@ -1,6 +1,6 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
-import { ImagePicker } from 'expo'
+import { StyleSheet } from 'react-native'
+import { ImagePicker, LinearGradient } from 'expo'
 import { userPermit } from './utils/Permissions'
 import { awsImgAnalysis } from './utils/AmazonServices'
 import { checkForHotdog } from './utils/CheckForHotDog'
@@ -58,7 +58,13 @@ export default class App extends React.Component {
   render () {
     const { pickedImage, isHotDog, loading, error } = this.state
     return (
-      <View style={styles.container}>
+      <LinearGradient
+        colors={['#FF416C', '#FF4B2B']}
+        start={[0, 0]}
+        end={[1, 1]}
+        location={[0.25, 0.4, 1]}
+        style={styles.container}
+      >
         {error &&
         <ErrorView reset={this.resetChecker}/>
         }
@@ -73,7 +79,7 @@ export default class App extends React.Component {
           reset={this.resetChecker}
         />
         }
-      </View>
+      </LinearGradient>
     )
   }
 }
