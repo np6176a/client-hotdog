@@ -12,8 +12,8 @@ class InitialView extends Component {
         <Image style={styles.logo} source={logo}/>
         <View/>
         <Text style={styles.title}>The Hot Dog Checker</Text>
-        <TouchableOpacity style={styles.btn} onPress={takePhoto}>
-          <Text style={styles.btnText}>Take A Photo</Text>
+        <TouchableOpacity style={[styles.btn, styles.btnSolid]} onPress={takePhoto}>
+          <Text style={[styles.btnText, styles.btnSolidText]}>Take A Photo</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.btn} onPress={selectPhoto}>
           <Text style={styles.btnText}>Select From Gallery</Text>

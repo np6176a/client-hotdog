@@ -4,7 +4,9 @@ export const awsImgAnalysis = async (pickedImage) => {
   const upload = await uploadImgAsync(pickedImage.uri)
   return await imgRekognition(upload.data)
 }
-const API_URL = 'http://localhost:3000/upload'
+const API_URL_UPLOAD = 'https://server-hotdog-rjnoop5zl.now.sh/upload'
+const API_URL_REKOGNITION = 'https://server-hotdog-rjnoop5zl.now.sh/rekognition'
+
 //the post to AWS S3
 export const uploadImgAsync = (uri) => {
   const uriParts = uri.split('.')
@@ -16,7 +18,7 @@ export const uploadImgAsync = (uri) => {
     name:`photo.${fileType}`,
     type: `image/${fileType}`
   })
-  return axios.post(API_URL, formData, {
+  return axios.post(API_URL_UPLOAD, formData, {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'multipart/form-data',
@@ -27,6 +29,5 @@ export const uploadImgAsync = (uri) => {
 
 //the post to AWS Rekognition
 export const imgRekognition = (imgData) => {
-  const apiUrl = 'http://localhost:3000/rekognition'
-  return axios.post(apiUrl, imgData)
+  return axios.post(API_URL_REKOGNITION, imgData)
 }

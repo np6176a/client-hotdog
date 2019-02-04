@@ -21,7 +21,6 @@ export default StyleSheet.create({
   btn: {
     width: 300,
     height: 50,
-    marginBottom: 20,
     borderColor: '#fff',
     borderWidth: 1,
     borderRadius: 100,
@@ -34,11 +33,18 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  btnSolid:{
+    backgroundColor: '#fff',
+    marginVertical: 30,
+  },
   btnText: {
     color: '#fff',
     textTransform: 'uppercase',
     fontSize: 16,
     fontWeight: 'bold'
+  },
+  btnSolidText:{
+    color: 'red'
   }
 })
 

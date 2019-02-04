@@ -8,6 +8,7 @@ import { imgLibPicker, imgCameraPicker } from './utils/ImgPicker'
 import InitialView from './components/InitialView'
 import PickedImageView from './components/PickedImageView'
 import ErrorView from './components/ErrorView'
+import LoadingView from './components/LoadingView'
 
 export default class App extends React.Component {
   constructor (props) {
@@ -72,15 +73,19 @@ export default class App extends React.Component {
         location={[0.25, 0.4, 1]}
         style={styles.container}
       >
-        {error &&
-        <ErrorView reset={this.resetChecker}/>
+        {loading
+        && <LoadingView/>
+        }
+        {error
+        && <ErrorView reset={this.resetChecker}/>
         }
 
-        {!pickedImage &&
-        <InitialView selectPhoto={this.selectPhoto} takePhoto={this.takePhoto}/>
+        {(!pickedImage && !loading && !error)
+        && <InitialView selectPhoto={this.selectPhoto} takePhoto={this.takePhoto}/>
         }
-        {(pickedImage && !loading) &&
-        <PickedImageView
+
+        {(pickedImage && !loading && !error)
+        && <PickedImageView
           pickedImage={pickedImage}
           isHotDog={isHotDog}
           reset={this.resetChecker}
