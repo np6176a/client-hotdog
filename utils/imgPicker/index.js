@@ -1,14 +1,9 @@
 import { ImagePicker } from 'expo'
 
-export const imgCameraPicker = async () => {
-  return await ImagePicker.launchCameraAsync({
-    allowsEditing: true,
-    aspect: [4, 3]
-  })
+const IMAGE_PICKER_OPTIONS = {
+  allowsEditing: true,
+  aspect: [4, 3]
 }
-export const imgLibPicker = async () => {
-  return await ImagePicker.launchImageLibraryAsync({
-    allowsEditing: true,
-    aspect: [4, 3]
-  })
-}
+
+export const imgCameraPicker = async () => await ImagePicker.launchCameraAsync(IMAGE_PICKER_OPTIONS)
+export const imgLibPicker = async () => await ImagePicker.launchImageLibraryAsync(IMAGE_PICKER_OPTIONS)
