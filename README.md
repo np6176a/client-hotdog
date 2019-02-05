@@ -51,15 +51,21 @@ styles.js file.
 1. Once an image is selected.
 
 ⋅⋅⋅1a The mobile app makes an async await call to the node server to upload the selected image
-and return a url for to the image location.  
+and return a url to the image location.  
 ⋅⋅⋅1b The node server uses aws-sdk to connect an [S3 Bucket](https://aws.amazon.com/s3/) and upload the selected image. Once uploaded the S3 bucket returns a url for the image to the node server.  
 
-2. The mobile app receives the url to the image.
+2.The mobile app receives the url to the image.
 
 ⋅⋅⋅2a The mobile app sends the image url back to the node server to be analyzed by [Amazon Image Rekognition](https://aws.amazon.com/rekognition/). It expects
 the return of a list of names (labels) from the node server. The list is then checked for the string 'Hot Dog'.  
 ⋅⋅⋅2b The node server uses the aws-sdk to send the image url to Amazon Rekognition's Detect Label service, which returns
 an object of arrays. The node server maps the object to send a list of names (labels) to the front end.   
+
+Note: There are two other potential solutions that would have worked here.
+
+* Method one would have been to use AWS Amplify SDK on the front end to connect to AWS S3 and Rekognition. This method would not have needed a Node server. However, I was trying not to use an SDK on the front end for the purposes of this challenge. 
+
+* Method two would have been to make one call from the front end and have the backend handle the logic to initiate the connection between S3 and Rekognition, then send one response to the front end containing the final list of names. I chose not do this for the purposes of this being a front end code challenge. Hence, I wanted to keep the logic in the front end and use the Node server purely to be a conduit between the mobile app and the AWS services.
 
 # Known Limitations
 
