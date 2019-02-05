@@ -54,8 +54,7 @@ styles.js file.
 and return a url to the image location.  
 ⋅⋅⋅1b The node server uses aws-sdk to connect an [S3 Bucket](https://aws.amazon.com/s3/) and upload the selected image. Once uploaded the S3 bucket returns a url for the image to the node server.  
 
-2.The mobile app receives the url to the image.
-
+2.The mobile app receives the url to the image.  
 ⋅⋅⋅2a The mobile app sends the image url back to the node server to be analyzed by [Amazon Image Rekognition](https://aws.amazon.com/rekognition/). It expects
 the return of a list of names (labels) from the node server. The list is then checked for the string 'Hot Dog'.  
 ⋅⋅⋅2b The node server uses the aws-sdk to send the image url to Amazon Rekognition's Detect Label service, which returns
